@@ -1,6 +1,6 @@
 import React from "react";
 
-function CharDescription() {
+function CharDescription(props) {
   return (
     <div>
       <h2>Char Description</h2>

@@ -1,9 +1,16 @@
 import React from "react";
 
-function Dropdown() {
+function Dropdown(props) {
   return (
     <div>
-      <h2>Dropdown</h2>
+      <select onChange={props.selectPerson}>
+        <option value="Jacob Fenwick">Jacob Fenwick</option>
+        {props.swPeople.map(person => (
+          <option key={person.name} value={person.name}>
+            {person.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
