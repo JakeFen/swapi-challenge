@@ -104,14 +104,17 @@ table {
   padding: 15px 0;
   text-align: center;
   border-radius: 3px;
-  -webkit-box-shadow: 0 0 5px blue;
-          box-shadow: 0 0 5px blue;
   margin: 15px;
 }
 
 .moviecard-wrapper ul li:nth-child(even) {
   -webkit-box-shadow: 0 0 5px red;
           box-shadow: 0 0 5px red;
+}
+
+.moviecard-wrapper ul li:nth-child(odd) {
+  -webkit-box-shadow: 0 0 5px blue;
+          box-shadow: 0 0 5px blue;
 }
 
 @media only screen and (min-width: 388px) {
