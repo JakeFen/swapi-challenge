@@ -7,15 +7,16 @@ import axios from "axios";
 class App extends Component {
   state = {
     swPeople: [],
-    selectedPerson: "Jacob Fenwick"
+    selectedCharacter: false,
+    selectedPerson: [],
+    currentMovies: []
   };
 
   componentDidMount() {
-    const swapiURL = "https://swapi.co/api/people/";
+    const swapiURL = `https://swapi.co/api/people/`;
     axios
       .get(swapiURL)
       .then(response => {
-        console.log(response.data);
         this.setState({ swPeople: response.data.results });
       })
       .catch(function(error) {
@@ -23,21 +24,59 @@ class App extends Component {
       });
   }
 
-  selectPerson = e => {
-    this.setState({selectedPerson: e.target.value})
-  }
-  
+  populateMovies = () => {
+    const foo = this.state.selectedPerson[0].films;
+    const currentMovies = [];
+
+    this.state.selectedCharacter &&
+      foo.map(film =>
+        axios
+          .get(film)
+          .then(response => {
+            currentMovies.push(response);
+            this.setState({ currentMovies });
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+      );
+  };
+
+  selectPerson = async e => {
+    const selectedPerson = this.state.swPeople.filter(
+      person => person.name === e.target.value
+    );
+    selectedPerson[0]
+      ? this.setState(
+          { selectedPerson, selectedCharacter: true },
+          this.populateMovies
+        )
+      : this.setState({
+          selectedPerson: [],
+          currentMovies: [],
+          selectedCharacter: false
+        });
+  };
+
   render() {
     return (
       <div className="App">
-        <h1>{this.state.selectedPerson}</h1>
+        <h1>Challenge 2</h1>
         <Dropdown
-        swPeople={this.state.swPeople}
-        selectPerson={this.selectPerson}
+          swPeople={this.state.swPeople}
+          selectPerson={this.selectPerson}
         />
-        <CharDescription
-        />
-        <MovieCard />
+        <div className="card-wrapper">
+          <CharDescription
+            pronouns={this.state.pronouns}
+            selectedCharacter={this.state.selectedCharacter}
+            selectPerson={this.state.selectedPerson}
+          />
+          <MovieCard
+            selectedMovies={this.state.selectedMovies}
+            currentMovies={this.state.currentMovies}
+          />
+        </div>
       </div>
     );
   }

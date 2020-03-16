@@ -1,0 +1,33 @@
+.moviecard-wrapper {
+  width: 80%;
+  border-radius: 3px;
+  box-shadow: 0 0 10px #444;
+  margin: 20px auto;
+  padding: 15px 10px;
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  ul {
+    li {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 15px 0;
+      text-align: center;
+      border-radius: 3px;
+      box-shadow: 0 0 5px blue;
+      margin: 15px;
+      &:nth-child(even) {
+        box-shadow: 0 0 5px red;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 388px) {
+  .moviecard-wrapper {
+    width: 300px;
+    margin: 20px;
+  }
+}
